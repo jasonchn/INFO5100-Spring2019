@@ -14,18 +14,27 @@ class Employee {
 
     // Constructor. Please set all the data in constructor.
     public Employee(String name, int age, Gender gender, double salary) {
-    		//write your code here
+            //write your code here
+            this.name = name;
+            this.age = age;
+            this.gender = gender;
+            this.salary = salary;
     }
     
     // Getter for `name`. Return the current `name` data
     public String getName() {
-    		//write your code here
+            //write your code here
+            return this.name;
     }
 
     // Setter for `name`. Set `name` data
     public void setName(String name) {
-    		//write your code here
+            //write your code here
+            this.name = name;
     	
+    }
+    public void raiseSalary(double byPercent){
+            this.salary = this.salary * byPercent / 100;
     }
 }
 
@@ -44,6 +53,13 @@ public class Assignment2 {
      */
     public double socialSecurityTax(Employee employee) {
         //write your code here
+        double socialSecurityTax;
+        if (employee.salary <= 8900){
+            socialSecurityTax = employee.salary * 0.062;
+        }else{
+            socialSecurityTax = 106800 * 0.062;
+        }
+        return socialSecurityTax;
     	
     }
 
@@ -55,6 +71,17 @@ public class Assignment2 {
      */
     public static double insuranceCoverage(Employee employee) {
         //write your code here
+        double insuranceContribution;
+        if (employee.age < 35){
+            insuranceContribution = employee.salary * 0.03;
+        }else if (employee.age >= 35 && employee.age <= 50) {
+            insuranceContribution = employee.salary * 0.04;
+        }else if (employee.age > 50 && employee.age < 60){
+            insuranceContribution = employee.salary * 0.05;
+        }else{
+            insuranceContribution = employee.salary * 0.06;
+        }
+        return insuranceContribution;
     }
 
     /**
@@ -64,6 +91,28 @@ public class Assignment2 {
      */
     public void sortSalary(Employee e1, Employee e2, Employee e3) {
         //write your code here
+        
+        double[] arr_Salary = new double[]{e1.salary,e2.salary,e3.salary};
+
+        for (int i =0; i < 2; i++)
+            for (int j =0; j < 1; j++)
+                if (arr_Salary[j] > arr_Salary[j+1]){
+
+                    double temp = arr_Salary[j];
+                    arr_Salary[j] = arr_Salary[j+1];
+                    arr_Salary[j+1] = temp;
+                }
+        
+        for ( int i = 0; i < 2; i++)
+                if (arr_Salary[i] == e1.salary){
+                    System.out.println(e1.name);
+                }else if (arr_Salary[i] == e2.salary){
+                    System.out.println(e2.name);
+                }else{
+                    System.out.println(e3.name);
+                }
+       
+        
     }
 
     /**
@@ -74,6 +123,7 @@ public class Assignment2 {
      */
     public void tripleSalary(Employee employee) {
         //write your code here
+        employee.raiseSalary(300);
     }
    
 
@@ -92,7 +142,9 @@ public class Assignment2 {
      */
     /*
      write your understanding here.
-     Your Answer:
+     Your Answer: Java is pass-by-value language. When passing an object as input in a method, the reference of the object is being passed.
+    So, no matter what was executed in the method, the original object is still pointing to original address. To achieve this, we
+    can use the setName method inside swap method, which can exchange the name attribute of each object.
     */
     public static void main(String[] args) {
         Employee a = new Employee("Jenny", 20, Gender.FEMALE, 2000);
